@@ -21,12 +21,15 @@ public class User {
     @Id @GeneratedValue
     private int id;
 
-    @Column(unique=true)    //중복 허용 x
+    @Column(length = 20, unique = true)    //중복 허용 x
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String name;
     private String website; //웹 사이트
-    private String bio;     //자기소개
+    private String bio;
+    @Column(nullable = false)//자기소개
     private String email;
     private String phone;
     private String gender;
