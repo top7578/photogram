@@ -1,11 +1,9 @@
 package com.cos.photogramstart.domain.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,12 +14,14 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Data
 @Entity //디비에 테이블을 생성
 public class User {
 
     @Id @GeneratedValue
     private int id;
+
+    @Column(unique=true)    //중복 허용 x
     private String username;
     private String password;
     private String name;
