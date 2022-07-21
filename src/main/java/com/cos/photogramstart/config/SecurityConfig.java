@@ -30,8 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**").authenticated()
                     .anyRequest().permitAll()
                 .and()
-                    .formLogin()                //인증이 필요한 페이지 요청이 오면
-                    .loginPage("/auth/signin")  //여기로 이동
-                    .defaultSuccessUrl("/");    //위 페이지에서 잘 처리하면 해당 페이지로 이동
+                    .formLogin()                        //인증이 필요한 페이지 요청이 오면
+                    .loginPage("/auth/signin")          //여기로 이동, GET
+                    .loginProcessingUrl("/auth/signin") //POST -> 스프링 시큐리티가 로그인 프로세스 진행
+                    .defaultSuccessUrl("/");            //위 페이지에서 잘 처리하면 해당 페이지로 이동
     }
 }
