@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**").authenticated()
+                    .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**", "/api/**").authenticated()
                     .anyRequest().permitAll()
                 .and()
                     .formLogin()                        //인증이 필요한 페이지 요청이 오면
