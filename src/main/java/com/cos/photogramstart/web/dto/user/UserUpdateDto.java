@@ -14,6 +14,7 @@ public class UserUpdateDto {
     private String password;    //필수
     private String website;
     private String bio;
+    private String email;
     private String phone;
     private String gender;
 
@@ -24,6 +25,7 @@ public class UserUpdateDto {
                 .password(password)
                 .website(website)
                 .bio(bio)
+                .email(email)
                 .phone(phone)
                 .gender(gender)
                 .build();

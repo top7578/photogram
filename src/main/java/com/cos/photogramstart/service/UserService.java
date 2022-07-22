@@ -38,8 +38,9 @@ public class UserService {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 
         userEntity.setPassword(encPassword);
-        userEntity.setBio(user.getBio());
         userEntity.setWebsite(user.getWebsite());
+        userEntity.setBio(user.getBio());
+        userEntity.setEmail(user.getEmail());
         userEntity.setPhone(user.getPhone());
         userEntity.setGender(user.getGender());
 
