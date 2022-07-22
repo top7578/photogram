@@ -37,7 +37,7 @@ public class ImageController {
 
         //multipart는 @Valid 기능 제공하지 않는다
         if (imageUploadDto.getFile().isEmpty()) {
-            throw new CustomValidationException("이미지가 첨부되지 않았습니다.", null);
+            throw new CustomValidationException("이미지가 첨부되지 않았습니다.");
         }
 
         //서비스 호출

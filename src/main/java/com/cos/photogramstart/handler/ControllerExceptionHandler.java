@@ -34,8 +34,6 @@ public class ControllerExceptionHandler {
         }
     }
 
-
-
     @ExceptionHandler(CustomValidationApiException.class)   //RuntimeException이 발생하는 모든 exception을 해당 함수가 감지
     public ResponseEntity<?> validationException(CustomValidationApiException e) {
         return new ResponseEntity<>(new CMRespDto<>(-1, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
