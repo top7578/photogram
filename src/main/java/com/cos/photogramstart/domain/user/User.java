@@ -41,7 +41,7 @@ public class User {
     //User를 Select할 때 해당 User id로 등록된 image들을 다 가져와
     //Lazy = User를 Select할 때 해당 User id로 등록된 image들을 가져오지마- 대신 getImages() 함수의 image들이 호출될 때 가져와!
     @OneToMany(mappedBy = "user")
-   private List<Image> images; //양방향 매핑
+    private List<Image> images; //양방향 매핑
 
     @CreationTimestamp
     private LocalDateTime createDate;
