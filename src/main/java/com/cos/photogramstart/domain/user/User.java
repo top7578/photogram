@@ -1,6 +1,8 @@
 package com.cos.photogramstart.domain.user;
 
 import com.cos.photogramstart.domain.image.Image;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -41,6 +43,7 @@ public class User {
     //User를 Select할 때 해당 User id로 등록된 image들을 다 가져와
     //Lazy = User를 Select할 때 해당 User id로 등록된 image들을 가져오지마- 대신 getImages() 함수의 image들이 호출될 때 가져와!
     @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"}) //Image 객체 안의 user 호출하지 마라. 순환참조 끊기
     private List<Image> images; //양방향 매핑
 
     @CreationTimestamp
