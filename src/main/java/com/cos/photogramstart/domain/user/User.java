@@ -1,6 +1,7 @@
 package com.cos.photogramstart.domain.user;
 
 import com.cos.photogramstart.domain.image.Image;
+import com.cos.photogramstart.domain.subscribe.Subscribe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -38,6 +39,12 @@ public class User {
 
     private String profileImageUrl; //사진
     private String role;            //권한
+
+    @OneToMany(mappedBy = "toUser")
+    private List<Subscribe> fromSubscribe;
+
+    @OneToMany(mappedBy = "fromUser")
+    private List<Subscribe> toSubscribe;
 
     //나는 연관관계의 주인이 아니다. 그러므로 테이블에 칼럼을 만들지마
     //User를 Select할 때 해당 User id로 등록된 image들을 다 가져와

@@ -1,6 +1,8 @@
 package com.cos.photogramstart.domain.subscribe;
 
 import com.cos.photogramstart.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,12 +31,14 @@ public class Subscribe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonIgnoreProperties({"toSubscribe", "fromSubscribe"})
     @JoinColumn(name = "fromUserId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User fromUser;
 
+    @JsonIgnoreProperties({"toSubscribe", "fromSubscribe"})
     @JoinColumn(name = "toUserId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User toUser;
 
     @CreationTimestamp

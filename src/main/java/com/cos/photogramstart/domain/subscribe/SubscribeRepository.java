@@ -1,8 +1,12 @@
 package com.cos.photogramstart.domain.subscribe;
 
+import com.cos.photogramstart.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
 
@@ -19,4 +23,10 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
 
     @Query(value = "SELECT COUNT(*) FROM subscribe WHERE fromUserId = :pageUserId", nativeQuery = true)
     int mSubscribeCount(int pageUserId);
+
+    @Query("select s from Subscribe s Inner join fetch s.toUser u where s.fromUser = :pageUser")
+    List<Subscribe> findSubscribeUser(User pageUser);
+
+    @Query("select case when count(s)>0 then true else false end from Subscribe s where s.fromUser = :loginUser And s.toUser = :pageUser")
+    boolean findSubscribeState(User loginUser, User pageUser);
 }
