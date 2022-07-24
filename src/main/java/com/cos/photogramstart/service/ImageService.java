@@ -9,6 +9,8 @@ import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,7 +57,7 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public List<Image> 이미지스토리(int id) {
+    public Page<Image> 이미지스토리(int id, Pageable pageable) {
 
         User user = userRepository.findUser(id);
 
@@ -66,7 +68,7 @@ public class ImageService {
             subscribeUserIdLst.add(s.getToUser().getId());
         });
 
-        List<Image> imageList = imageRepository.mStory(subscribeUserIdLst);
+        Page<Image> imageList = imageRepository.mStory(subscribeUserIdLst, pageable);
         return imageList;
     }
 }
