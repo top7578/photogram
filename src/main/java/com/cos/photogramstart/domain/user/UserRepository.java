@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //JPA query method
     User findByUsername(String username);
 
+    @Query(value = "SELECT distinct u FROM User u JOIN FETCH u.toSubscribe ts WHERE u.id=:id")
+    User findUser(int id);
 }

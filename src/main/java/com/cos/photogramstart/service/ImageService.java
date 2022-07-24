@@ -3,6 +3,9 @@ package com.cos.photogramstart.service;
 import com.cos.photogramstart.config.auth.PrincipalDetails;
 import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.image.ImageRepository;
+import com.cos.photogramstart.domain.subscribe.Subscribe;
+import com.cos.photogramstart.domain.user.User;
+import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +17,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -21,6 +26,7 @@ import java.util.UUID;
 public class ImageService {
 
     private final ImageRepository imageRepository;
+    private final UserRepository userRepository;
 
     @Value("${file.path}")
     private String uploadFolder;
@@ -46,5 +52,21 @@ public class ImageService {
         Image image = imageUploadDto.toEntity(imageFileName, principalDetails.getUser());
         imageRepository.save(image);
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<Image> 이미지스토리(int id) {
+
+        User user = userRepository.findUser(id);
+
+        List<Integer> subscribeUserIdLst = new ArrayList<>();
+
+        List<Subscribe> ts = user.getToSubscribe();
+        ts.stream().forEach(s -> {
+            subscribeUserIdLst.add(s.getToUser().getId());
+        });
+
+        List<Image> imageList = imageRepository.mStory(subscribeUserIdLst);
+        return imageList;
     }
 }

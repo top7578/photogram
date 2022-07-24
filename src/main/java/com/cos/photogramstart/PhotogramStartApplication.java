@@ -1,7 +1,9 @@
 package com.cos.photogramstart;
 
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class PhotogramStartApplication {
@@ -10,4 +12,8 @@ public class PhotogramStartApplication {
 		SpringApplication.run(PhotogramStartApplication.class, args);
 	}
 
+	@Bean
+	Hibernate5Module hibernate5Module() {
+		return new Hibernate5Module();
+	}
 }

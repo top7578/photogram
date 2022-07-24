@@ -41,9 +41,11 @@ public class User {
     private String role;            //권한
 
     @OneToMany(mappedBy = "toUser")
+    @JsonIgnoreProperties({"toUser", "fromUser"})
     private List<Subscribe> fromSubscribe;
 
     @OneToMany(mappedBy = "fromUser")
+    @JsonIgnoreProperties({"toUser", "fromUser"})
     private List<Subscribe> toSubscribe;
 
     //나는 연관관계의 주인이 아니다. 그러므로 테이블에 칼럼을 만들지마

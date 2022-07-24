@@ -23,14 +23,12 @@ public class SubscribeService {
 
     @Transactional(readOnly = true)
     public List<SubscribeDto> 구독리스트(int principalId, int pageUserId) {
-        User user = userRepository.findById(pageUserId).get();
-        User loginUser = userRepository.findById(principalId).get();
 
-        List<Subscribe> result = subscribeRepository.findSubscribeUser(user);
+        List<Subscribe> result = subscribeRepository.findSubscribeUser(pageUserId);
 
         List<SubscribeDto> resultDto = result.stream()
                 .map(s -> {
-                    boolean resultSubscribeState = subscribeRepository.findSubscribeState(loginUser, s.getToUser());
+                    boolean resultSubscribeState = subscribeRepository.findSubscribeState(principalId, pageUserId);
 
                     return SubscribeDto.builder().
                         userId(s.getToUser().getId()).

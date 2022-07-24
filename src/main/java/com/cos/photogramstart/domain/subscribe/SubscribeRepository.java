@@ -24,9 +24,9 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
     @Query(value = "SELECT COUNT(*) FROM subscribe WHERE fromUserId = :pageUserId", nativeQuery = true)
     int mSubscribeCount(int pageUserId);
 
-    @Query("select s from Subscribe s Inner join fetch s.toUser u where s.fromUser = :pageUser")
-    List<Subscribe> findSubscribeUser(User pageUser);
+    @Query("select s from Subscribe s Inner join fetch s.toUser u where s.fromUser.id = :pageUserId")
+    List<Subscribe> findSubscribeUser(int pageUserId);
 
-    @Query("select case when count(s)>0 then true else false end from Subscribe s where s.fromUser = :loginUser And s.toUser = :pageUser")
-    boolean findSubscribeState(User loginUser, User pageUser);
+    @Query("select case when count(s)>0 then true else false end from Subscribe s where s.fromUser.id = :loginUserId And s.toUser.id = :pageUserId")
+    boolean findSubscribeState(int loginUserId, int pageUserId);
 }
